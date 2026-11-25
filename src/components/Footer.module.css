@@ -295,3 +295,9 @@
     font-size: 0.9375rem;
   }
 }
+
+/* Room under the last footer row so a fixed corner badge added by the host
+   (e.g. "Powered by Netlify") never covers "Voltar ao topo". */
+:global([data-style='nude']) .bottom {
+  padding-bottom: var(--space-8);
+}

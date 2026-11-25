@@ -61,7 +61,7 @@ const business = {
   contact: {
     whatsapp: '',
     email: '',
-    instagram: '',
+    instagram: 'https://www.instagram.com/sextosentidocabeloestetica/',
   },
 
   /* 3. CORES E LETRAS — rosa nude + castanho-escuro, estilo editorial ("nude").
