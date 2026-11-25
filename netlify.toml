@@ -1,0 +1,8 @@
+# Netlify: como compilar e publicar o site
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Vite 8 precisa de Node 20.19+ ou 22.12+
+  NODE_VERSION = "22"
