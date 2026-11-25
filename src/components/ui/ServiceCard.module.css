@@ -1,0 +1,312 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-rest);
+  transition:
+    transform var(--t-base) var(--ease),
+    box-shadow var(--t-base) var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.media {
+  aspect-ratio: 4 / 3;
+  border-radius: 0;
+}
+
+.media img {
+  transition:
+    transform 600ms var(--ease),
+    filter 600ms var(--ease);
+}
+
+.card:hover .media img {
+  transform: scale(1.06);
+  filter: saturate(1.1) brightness(0.92);
+}
+
+.number {
+  position: absolute;
+  top: 0;
+  left: var(--space-4);
+  padding: var(--space-3) var(--space-3) var(--space-2);
+  background: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-white);
+}
+
+.body {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-4) var(--space-5);
+}
+
+.body h3 {
+  position: relative;
+  padding-bottom: var(--space-3);
+  font-size: 2rem;
+}
+
+.body h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 32px;
+  height: 4px;
+  background: var(--color-primary);
+  transition: width var(--t-base) var(--ease);
+}
+
+.card:hover .body h3::after {
+  width: 72px;
+}
+
+.body p {
+  color: var(--text-muted);
+}
+
+/* Optional action at the bottom of a card (e.g. order on Glovo) */
+.body {
+  flex: 1;
+  grid-template-rows: auto auto 1fr;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  align-self: end;
+  min-height: 48px;
+  margin-top: var(--space-2);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: var(--ui-tracking);
+  text-transform: var(--ui-case);
+  text-decoration: none;
+  color: var(--color-white);
+  transition:
+    background-color var(--t-base) var(--ease),
+    transform var(--t-base) var(--ease);
+}
+
+.cta:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-2px);
+}
+
+.cta svg {
+  transition: transform var(--t-base) var(--ease);
+}
+
+.cta:hover svg {
+  transform: translateX(4px);
+}
+
+@media (min-width: 641px) and (max-width: 960px) {
+  .card:not(.portrait) {
+    flex-direction: row;
+  }
+
+  .card:not(.portrait) .media {
+    flex: 0 0 44%;
+    aspect-ratio: 4 / 3;
+  }
+
+  .card:not(.portrait) .body {
+    align-content: center;
+  }
+}
+
+/* Portrait cards (used for a row of four services) */
+.portrait .media {
+  aspect-ratio: 4 / 5;
+}
+
+.portrait .body h3 {
+  font-size: 1.6rem;
+}
+
+@media (max-width: 600px) {
+  .portrait .media {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Minimal style: a small numbered tag and a hairline accent under the title
+   -------------------------------------------------------------------------- */
+:global([data-style='minimal']) .number {
+  top: var(--space-3);
+  left: var(--space-3);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+}
+
+:global([data-style='minimal']) .body {
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-4) var(--space-5);
+}
+
+:global([data-style='minimal']) .body h3 {
+  font-size: var(--fs-h3);
+}
+
+:global([data-style='minimal']) .body h3::after {
+  width: 24px;
+  height: 1px;
+}
+
+:global([data-style='minimal']) .card:hover .body h3::after {
+  width: 48px;
+}
+
+:global([data-style='minimal']) .card:hover .media img {
+  transform: scale(1.05);
+  filter: brightness(0.94);
+}
+
+/* Round arrow link — hidden unless a style uses it */
+.arrow {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Nude style: the photo fills the whole card, a dark gradient at the bottom,
+   a big white title, short text and a round pink arrow button.
+   -------------------------------------------------------------------------- */
+:global([data-style='nude']) .card {
+  position: relative;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  box-shadow: var(--shadow-rest);
+}
+
+:global([data-style='nude']) .card .media,
+:global([data-style='nude']) .portrait .media {
+  aspect-ratio: 4 / 5;
+}
+
+:global([data-style='nude']) .media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgb(26 20 20 / 0) 38%,
+    rgb(26 20 20 / 0.55) 62%,
+    rgb(26 20 20 / 0.9) 100%
+  );
+}
+
+:global([data-style='nude']) .number {
+  display: none;
+}
+
+:global([data-style='nude']) .body {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-items: end;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-4);
+  color: var(--color-white);
+}
+
+:global([data-style='nude']) .body h3 {
+  grid-column: 1 / -1;
+  padding: 0;
+  font-size: clamp(2.2rem, 3.2vw, 2.8rem);
+  line-height: 0.95;
+  color: var(--color-white);
+}
+
+:global([data-style='nude']) .body h3::after {
+  display: none;
+}
+
+:global([data-style='nude']) .body p {
+  font-size: 1rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--color-white) 90%, transparent);
+}
+
+:global([data-style='nude']) .arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--pink);
+  color: var(--color-ink);
+  transition:
+    transform var(--t-base) var(--ease),
+    background-color var(--t-base) var(--ease);
+}
+
+:global([data-style='nude']) .arrow:hover {
+  transform: translateX(3px);
+  background: var(--color-white);
+}
+
+/* The text area at the bottom of the card is clickable through the arrow link */
+:global([data-style='nude']) .arrow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+:global([data-style='nude']) .card:hover .media img {
+  transform: scale(1.05);
+  filter: none;
+}
+
+@media (min-width: 641px) and (max-width: 960px) {
+  :global([data-style='nude']) .card:not(.portrait) {
+    flex-direction: column;
+  }
+}
+
+/* Nude style: arrow sits next to the title so the description uses the full width */
+:global([data-style='nude']) .body h3 {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: end;
+}
+
+:global([data-style='nude']) .arrow {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: end;
+  margin-bottom: 2px;
+}
+
+:global([data-style='nude']) .body p {
+  grid-column: 1 / -1;
+  grid-row: 2;
+}
+
+:global([data-style='nude']) .portrait .body h3 {
+  font-size: clamp(1.9rem, 2.4vw, 2.4rem);
+  overflow-wrap: anywhere;
+}

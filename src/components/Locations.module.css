@@ -1,0 +1,216 @@
+/* Region filters --------------------------------------------------------- */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.filter {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 46px;
+  padding: 0 var(--space-4);
+  border: 2px solid color-mix(in srgb, var(--color-white) 35%, transparent);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  cursor: pointer;
+  transition:
+    background-color var(--t-fast) var(--ease),
+    border-color var(--t-fast) var(--ease),
+    transform var(--t-fast) var(--ease);
+}
+
+.filter:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.filterActive,
+.filterActive:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: none;
+}
+
+.count {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  opacity: 0.75;
+}
+
+/* Grid ------------------------------------------------------------------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: fadeIn 300ms var(--ease);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-4) var(--space-3);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  transition:
+    transform var(--t-base) var(--ease),
+    border-color var(--t-base) var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--color-white) 30%, transparent);
+  border-top-color: var(--color-primary);
+}
+
+/* A restaurant with full details spans more room */
+.detailed {
+  grid-column: span 2;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  border-top-color: var(--color-white);
+}
+
+.head {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.region {
+  font-size: var(--fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.detailed .region {
+  color: var(--color-white);
+}
+
+.name {
+  font-size: 1.9rem;
+  color: var(--color-white);
+}
+
+.city {
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+.details {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-weight: 500;
+}
+
+.details li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.details svg {
+  flex: none;
+  margin-top: 4px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: var(--ui-tracking);
+  text-transform: var(--ui-case);
+  text-decoration: none;
+  color: var(--color-white);
+  border-bottom: 2px solid var(--color-primary);
+  transition: color var(--t-fast) var(--ease);
+}
+
+.action:hover {
+  color: var(--color-primary);
+}
+
+.detailed .action {
+  border-bottom-color: var(--color-white);
+}
+
+.detailed .action:hover {
+  color: var(--color-ink);
+}
+
+/* Mobile: a compact list — name on the left, map link on the right */
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .card {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    border-top-width: 1px;
+    border-left: 4px solid var(--color-primary);
+  }
+
+  .card:hover {
+    transform: none;
+    border-left-color: var(--color-primary);
+  }
+
+  .name {
+    font-size: 1.5rem;
+  }
+
+  .actions {
+    flex: none;
+  }
+
+  .detailed {
+    grid-column: auto;
+    flex-direction: column;
+    align-items: stretch;
+    border-left-color: var(--color-white);
+  }
+
+  .detailed .actions {
+    gap: 0 var(--space-4);
+  }
+}

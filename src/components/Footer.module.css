@@ -1,0 +1,297 @@
+/* Red poster band to close the page */
+.footer {
+  padding-top: var(--space-8);
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: var(--fs-small);
+  font-weight: 500;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+  padding-bottom: var(--space-7);
+}
+
+.brandCol p {
+  margin-top: var(--space-4);
+  max-width: 30ch;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--color-white);
+}
+
+.logo {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--color-white);
+  transition: transform var(--t-base) var(--ease);
+}
+
+.brand:hover .logo {
+  transform: rotate(-8deg);
+}
+
+.brandText {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.tagline {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.brandText > span {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1;
+  text-transform: var(--display-case);
+  letter-spacing: 0.02em;
+}
+
+.label {
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid var(--color-white);
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--color-white);
+}
+
+.big {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.contactList {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  text-decoration: none;
+  transition: color var(--t-fast) var(--ease);
+}
+
+.link:hover {
+  color: var(--color-ink);
+}
+
+.cta {
+  font-weight: 700;
+  letter-spacing: var(--ui-tracking);
+  text-transform: var(--ui-case);
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-block: var(--space-4);
+  border-top: 2px solid color-mix(in srgb, var(--color-white) 40%, transparent);
+}
+
+.backTop {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  font-weight: 700;
+  letter-spacing: var(--ui-tracking);
+  text-transform: var(--ui-case);
+  text-decoration: none;
+  transition:
+    color var(--t-fast) var(--ease),
+    gap var(--t-fast) var(--ease);
+}
+
+.backTop:hover {
+  color: var(--color-ink);
+  gap: var(--space-3);
+}
+
+@media (max-width: 900px) {
+  .top {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .brandCol {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer {
+    padding-top: var(--space-7);
+  }
+
+  .top {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Minimal style: close the page on the warm ink tone with hairline rules
+   -------------------------------------------------------------------------- */
+:global([data-style='minimal']) .footer {
+  border-top: 1px solid color-mix(in srgb, var(--color-white) 10%, transparent);
+  background: var(--color-ink);
+  font-weight: 400;
+  color: color-mix(in srgb, var(--color-white) 82%, var(--color-ink));
+}
+
+:global([data-style='minimal']) .brand,
+:global([data-style='minimal']) .label {
+  color: var(--color-white);
+}
+
+:global([data-style='minimal']) .tagline {
+  color: var(--color-accent);
+}
+
+:global([data-style='minimal']) .label {
+  font-size: 1.25rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-white) 14%, transparent);
+}
+
+:global([data-style='minimal']) .link:hover,
+:global([data-style='minimal']) .backTop:hover {
+  color: var(--color-accent);
+}
+
+:global([data-style='minimal']) .cta,
+:global([data-style='minimal']) .backTop {
+  font-weight: 600;
+}
+
+:global([data-style='minimal']) .bottom {
+  border-top: 1px solid color-mix(in srgb, var(--color-white) 12%, transparent);
+}
+
+/* Name shown in the bottom row — only by styles that use it */
+.bottomName {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Nude style: dark-brown band; serif logo with script subtitle; bottom row
+   with the name on the left, copyright centred, back-to-top on the right.
+   -------------------------------------------------------------------------- */
+:global([data-style='nude']) .footer {
+  background: var(--color-primary);
+  font-weight: 400;
+  color: color-mix(in srgb, var(--color-white) 84%, var(--color-primary));
+}
+
+:global([data-style='nude']) .brand,
+:global([data-style='nude']) .label {
+  color: var(--color-white);
+}
+
+:global([data-style='nude']) .brandText > span {
+  font-family: var(--font-logo);
+  font-size: 1.9rem;
+  letter-spacing: 0.02em;
+}
+
+:global([data-style='nude']) .tagline {
+  padding-left: var(--space-4);
+  font-family: var(--font-script);
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-accent);
+}
+
+:global([data-style='nude']) .label {
+  font-size: 1.35rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-white) 14%, transparent);
+}
+
+:global([data-style='nude']) .link:hover,
+:global([data-style='nude']) .backTop:hover {
+  color: var(--color-accent);
+}
+
+:global([data-style='nude']) .cta,
+:global([data-style='nude']) .backTop {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+:global([data-style='nude']) .bottom {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  border-top: 1px solid color-mix(in srgb, var(--color-white) 12%, transparent);
+}
+
+:global([data-style='nude']) .bottom p {
+  text-align: center;
+}
+
+:global([data-style='nude']) .bottomName {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-white);
+}
+
+:global([data-style='nude']) .bottomName span {
+  color: var(--color-accent);
+}
+
+:global([data-style='nude']) .backTop {
+  justify-self: end;
+}
+
+@media (max-width: 860px) {
+  :global([data-style='nude']) .bottom {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    gap: var(--space-2);
+  }
+
+  :global([data-style='nude']) .bottom p {
+    text-align: left;
+  }
+
+  :global([data-style='nude']) .backTop {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 600px) {
+  :global([data-style='nude']) .cta,
+  :global([data-style='nude']) .backTop,
+  :global([data-style='nude']) .bottomName {
+    font-size: 0.9375rem;
+  }
+}

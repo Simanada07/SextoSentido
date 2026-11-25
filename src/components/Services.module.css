@@ -1,0 +1,75 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.feature {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.grid4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+@media (max-width: 1024px) {
+  .grid4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5) var(--space-4);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid4 {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+/* Tablet: one column of horizontal cards (see ServiceCard.module.css) */
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}
+
+@media (max-width: 640px) {
+  .feature {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Nude style, phones: the cards become a horizontal swipe carousel */
+@media (max-width: 600px) {
+  :global([data-style='nude']) .grid4 {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 82%;
+    gap: var(--space-3);
+    margin-inline: calc(var(--gutter) * -1);
+    padding: var(--space-1) var(--gutter) var(--space-3);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+
+  :global([data-style='nude']) .grid4::-webkit-scrollbar {
+    display: none;
+  }
+
+  :global([data-style='nude']) .grid4 > * {
+    scroll-snap-align: start;
+  }
+}
+
+/* Tilt wrapper fills the grid cell so the card keeps its full height */
+.tilt {
+  height: 100%;
+}

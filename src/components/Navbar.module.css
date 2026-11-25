@@ -1,0 +1,427 @@
+/* Solid black bar — matches the poster look and stays readable over any
+   hero image from the very first paint. */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  background: var(--color-ink);
+  color: var(--color-white);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-white) 10%, transparent);
+  transition: box-shadow var(--t-base) var(--ease);
+}
+
+.scrolled {
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.25);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  height: var(--nav-h);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--color-white);
+}
+
+.logo {
+  width: 52px;
+  height: 52px;
+  transition: transform var(--t-base) var(--ease);
+}
+
+.brand:hover .logo {
+  transform: rotate(-8deg) scale(1.04);
+}
+
+.brandText {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.brandTagline {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  opacity: 0.72;
+}
+
+.brandSecondary {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+  text-transform: var(--display-case);
+  line-height: 1;
+}
+
+.desktopLinks {
+  display: flex;
+  gap: var(--space-5);
+  margin-left: auto;
+}
+
+.link {
+  position: relative;
+  padding-block: var(--space-2);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: var(--ui-tracking-wide);
+  text-transform: var(--ui-case);
+  text-decoration: none;
+  color: var(--color-white);
+  transition: color var(--t-fast) var(--ease);
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--t-base) var(--ease);
+}
+
+.link:hover {
+  color: var(--color-primary);
+}
+
+.link:hover::after {
+  transform: scaleX(1);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 2px solid color-mix(in srgb, var(--color-white) 30%, transparent);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-white);
+  cursor: pointer;
+  transition:
+    background-color var(--t-fast) var(--ease),
+    border-color var(--t-fast) var(--ease);
+}
+
+.toggle:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.panel {
+  border-top: 1px solid color-mix(in srgb, var(--color-white) 10%, transparent);
+  background: var(--color-ink);
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.panelOpen {
+  animation: panelIn var(--t-base) var(--ease);
+  box-shadow: 0 24px 40px rgb(0 0 0 / 0.35);
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.mobileList {
+  margin: 0;
+  padding: var(--space-3) 0;
+  list-style: none;
+}
+
+.mobileLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-white) 12%, transparent);
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1.1;
+  text-transform: var(--display-case);
+  text-decoration: none;
+  color: var(--color-white);
+  transition: color var(--t-fast) var(--ease);
+}
+
+.mobileLink svg {
+  color: var(--color-primary);
+}
+
+.mobileLink:hover {
+  color: var(--color-primary);
+}
+
+.mobileCta {
+  width: 100%;
+  margin-bottom: var(--space-4);
+}
+
+@media (max-width: 860px) {
+  .desktopLinks {
+    display: none;
+  }
+
+  .toggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 600px) {
+  .logo {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+@media (max-width: 420px) {
+  .cta {
+    display: none;
+  }
+}
+
+@media (min-width: 861px) {
+  .panel {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Minimal style: a light, editorial bar in the page colour. Solid enough to
+   read on first paint over any photo; it only gains a soft shadow on scroll.
+   -------------------------------------------------------------------------- */
+:global([data-style='minimal']) .nav {
+  background: color-mix(in srgb, var(--color-bg) 94%, transparent);
+  -webkit-backdrop-filter: saturate(1.2) blur(10px);
+  backdrop-filter: saturate(1.2) blur(10px);
+  color: var(--color-ink);
+  border-bottom-color: color-mix(in srgb, var(--color-ink) 8%, transparent);
+}
+
+:global([data-style='minimal']) .scrolled {
+  box-shadow: 0 6px 24px rgb(40 24 26 / 0.07);
+}
+
+:global([data-style='minimal']) .brand {
+  color: var(--color-ink);
+}
+
+:global([data-style='minimal']) .brandSecondary {
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+:global([data-style='minimal']) .brandTagline {
+  color: var(--color-primary);
+  opacity: 1;
+}
+
+:global([data-style='minimal']) .link {
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+:global([data-style='minimal']) .link::after {
+  height: 1px;
+}
+
+:global([data-style='minimal']) .link:hover {
+  color: var(--color-primary);
+}
+
+:global([data-style='minimal']) .toggle {
+  border-width: 1px;
+  border-color: color-mix(in srgb, var(--color-ink) 18%, transparent);
+  color: var(--color-ink);
+}
+
+:global([data-style='minimal']) .toggle:hover {
+  color: var(--color-white);
+}
+
+:global([data-style='minimal']) .panel {
+  border-top-color: color-mix(in srgb, var(--color-ink) 8%, transparent);
+  background: var(--color-bg);
+}
+
+:global([data-style='minimal']) .panelOpen {
+  box-shadow: 0 24px 40px rgb(40 24 26 / 0.1);
+}
+
+:global([data-style='minimal']) .mobileLink {
+  font-size: 1.75rem;
+  color: var(--color-ink);
+  border-bottom-color: color-mix(in srgb, var(--color-ink) 10%, transparent);
+}
+
+:global([data-style='minimal']) .mobileLink:hover {
+  color: var(--color-primary);
+}
+
+@media (max-width: 480px) {
+  .brandTagline {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Nude style: cream bar, serif logo with a script subtitle, centred links in
+   small caps and a pink pill booking button.
+   -------------------------------------------------------------------------- */
+:global([data-style='nude']) .nav {
+  background: color-mix(in srgb, var(--color-bg) 94%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: var(--color-ink);
+  border-bottom: 1px solid transparent;
+  transition:
+    box-shadow var(--t-base) var(--ease),
+    border-color var(--t-base) var(--ease);
+}
+
+:global([data-style='nude']) .scrolled {
+  border-bottom-color: color-mix(in srgb, var(--color-ink) 8%, transparent);
+  box-shadow: 0 6px 24px rgb(43 29 26 / 0.06);
+}
+
+:global([data-style='nude']) .brand {
+  color: var(--color-ink);
+}
+
+:global([data-style='nude']) .brandText {
+  gap: 0;
+}
+
+:global([data-style='nude']) .brandSecondary {
+  font-family: var(--font-logo);
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+:global([data-style='nude']) .brandTagline {
+  margin-top: -2px;
+  padding-left: var(--space-4);
+  font-family: var(--font-script);
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: 1;
+  color: var(--color-ink);
+}
+
+:global([data-style='nude']) .desktopLinks {
+  margin-inline: auto;
+  gap: var(--space-6);
+}
+
+:global([data-style='nude']) .link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+:global([data-style='nude']) .link::after {
+  height: 1px;
+  background: var(--pink);
+}
+
+:global([data-style='nude']) .link:hover {
+  color: var(--pink-text);
+}
+
+:global([data-style='nude']) .cta {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: var(--color-ink);
+}
+
+:global([data-style='nude']) .cta:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+:global([data-style='nude']) .toggle {
+  border: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+  border-radius: 50%;
+  color: var(--color-ink);
+}
+
+:global([data-style='nude']) .toggle:hover {
+  border-color: var(--pink);
+  background: var(--pink);
+  color: var(--color-ink);
+}
+
+:global([data-style='nude']) .panel {
+  border-top-color: color-mix(in srgb, var(--color-ink) 8%, transparent);
+  background: var(--color-bg);
+}
+
+:global([data-style='nude']) .panelOpen {
+  box-shadow: 0 24px 40px rgb(43 29 26 / 0.1);
+}
+
+:global([data-style='nude']) .mobileLink {
+  font-size: 2rem;
+  color: var(--color-ink);
+  border-bottom-color: color-mix(in srgb, var(--color-ink) 10%, transparent);
+}
+
+:global([data-style='nude']) .mobileLink svg {
+  color: var(--pink-text);
+}
+
+:global([data-style='nude']) .mobileLink:hover {
+  color: var(--pink-text);
+}
+
+/* Keep the script subtitle on phones in the nude style (it is short) */
+@media (max-width: 480px) {
+  :global([data-style='nude']) .brandTagline {
+    display: block;
+    padding-left: var(--space-3);
+    font-size: 1rem;
+  }
+}
+
+/* Comfortable tap/click targets: logo and desktop links at least 44px tall */
+:global([data-style='nude']) .brand {
+  min-height: 44px;
+}
+
+:global([data-style='nude']) .link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}

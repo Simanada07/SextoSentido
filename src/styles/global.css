@@ -1,0 +1,522 @@
+/* ==========================================================================
+   DESIGN SYSTEM — Camada
+   Bold poster look: heavy condensed uppercase headings, coral red, black
+   and white. Brand colours (--color-primary, --color-secondary,
+   --color-accent, --color-ink, --color-bg) are injected from
+   src/config/business.js at start-up; everything else derives from them.
+
+   A client can switch to another finish with `theme.style` in its config
+   (e.g. 'minimal'), which sets <html data-style="minimal">. Each style
+   only redefines the tokens below, plus a few :global overrides in the
+   component modules.
+   ========================================================================== */
+
+:root {
+  /* Typography */
+  --font-display: 'Anton', 'Impact', 'Arial Narrow', sans-serif;
+  --font-body: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --fs-body: 1.125rem; /* 18px */
+  --fs-small: 1rem; /* 16px — smallest text on the site */
+  --fs-eyebrow: 0.8rem;
+  --fs-h1: clamp(3.2rem, 7.4vw, 6.4rem);
+  --fs-h2: clamp(2.4rem, 4.6vw, 3.8rem);
+  --fs-h3: 1.6rem;
+  --lh-body: 1.65;
+  --lh-heading: 1;
+  --lh-h1: 0.95;
+
+  /* Letter case & tracking — poster style: everything set in capitals */
+  --display-case: uppercase; /* headings and other display-font text */
+  --display-weight: 400;
+  --display-tracking: 0.005em;
+  --ui-case: uppercase; /* buttons, nav links, text links */
+  --ui-tracking: 0.08em;
+  --ui-tracking-wide: 0.1em;
+  --eyebrow-rule: 3px; /* the short line before section labels */
+
+  /* Spacing scale: 4 8 16 24 32 48 64 96 128 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+  --space-9: 128px;
+
+  /* Layout */
+  --container: 1200px;
+  --gutter: clamp(16px, 4vw, 24px);
+  --section-y: var(--space-8);
+  --nav-h: 76px;
+
+  /* Derived colours */
+  --color-primary-hover: color-mix(in srgb, var(--color-primary) 86%, black);
+  --color-white: #fff;
+
+  /* Contextual colours — light sections by default, overridden below */
+  --text: var(--color-ink);
+  --text-muted: color-mix(in srgb, var(--color-ink) 70%, var(--color-bg));
+  --line: color-mix(in srgb, var(--color-ink) 14%, transparent);
+  --surface: var(--color-white);
+  --highlight: var(--color-primary);
+  --eyebrow: var(--color-primary);
+
+  /* Depth — tighter, poster-like corners */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --shadow-rest: 0 1px 2px rgb(17 17 17 / 0.05), 0 8px 24px rgb(17 17 17 / 0.07);
+  --shadow-hover: 0 2px 4px rgb(17 17 17 / 0.06), 0 18px 44px rgb(17 17 17 / 0.16);
+
+  /* Motion */
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --t-fast: 150ms;
+  --t-base: 220ms;
+}
+
+@media (max-width: 960px) {
+  :root {
+    --section-y: var(--space-7);
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --section-y: var(--space-6);
+    --fs-body: 1rem;
+    --nav-h: 68px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-ink);
+  background: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+main {
+  background: var(--color-bg);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  line-height: var(--lh-heading);
+  text-transform: var(--display-case);
+  letter-spacing: var(--display-tracking);
+  color: var(--text);
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  line-height: var(--lh-h1);
+}
+
+h2 {
+  font-size: var(--fs-h2);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+}
+
+/* Two-tone headlines: words wrapped in *asterisks* in business.js */
+.hl {
+  color: var(--highlight);
+}
+
+p {
+  margin: 0;
+  max-width: 65ch;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+section[id] {
+  scroll-margin-top: var(--nav-h);
+}
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* --------------------------------------------------------------------------
+   Shared layout helpers
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+  color: var(--text);
+}
+
+.section--alt {
+  background: var(--color-neutral, var(--color-secondary));
+}
+
+.section--dark {
+  --text: var(--color-white);
+  --text-muted: color-mix(in srgb, var(--color-white) 70%, var(--color-ink));
+  --line: color-mix(in srgb, var(--color-white) 16%, transparent);
+  --surface: color-mix(in srgb, var(--color-white) 6%, var(--color-ink));
+  --highlight: var(--color-highlight-dark, var(--color-primary));
+  --eyebrow: var(--color-accent);
+  background: var(--color-ink);
+}
+
+.section--red {
+  --text: var(--color-white);
+  --text-muted: color-mix(in srgb, var(--color-white) 86%, var(--color-primary));
+  --line: color-mix(in srgb, var(--color-white) 30%, transparent);
+  --highlight: var(--color-highlight-primary, var(--color-ink));
+  --eyebrow: var(--color-white);
+  background: var(--color-primary);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--eyebrow);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 24px;
+  height: var(--eyebrow-rule);
+  background: currentColor;
+}
+
+.lead {
+  color: var(--text-muted);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Fixed-ratio image frame: images always fill, layout never breaks */
+.media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--color-ink);
+}
+
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 700ms var(--ease),
+    transform 700ms var(--ease);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+}
+
+/* ==========================================================================
+   STYLE: MINIMAL — calm editorial finish (theme.style: 'minimal')
+   Serif headings in sentence case, softer corners and shadows, hairline
+   rules, and a soft tinted band instead of a full primary-colour section.
+   ========================================================================== */
+:root[data-style='minimal'] {
+  --fs-h1: clamp(2.8rem, 5vw, 4.2rem);
+  --fs-h2: clamp(2rem, 3.5vw, 2.8rem);
+  --fs-h3: 1.4rem;
+  --lh-heading: 1.15;
+  --lh-h1: 1.08;
+
+  --display-case: none;
+  --display-weight: 400;
+  --display-tracking: -0.015em;
+  --ui-case: none;
+  --ui-tracking: 0.01em;
+  --ui-tracking-wide: 0.01em;
+  --eyebrow-rule: 1px;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --shadow-rest: 0 1px 2px rgb(40 24 26 / 0.04), 0 8px 24px rgb(40 24 26 / 0.06);
+  --shadow-hover: 0 2px 4px rgb(40 24 26 / 0.05), 0 16px 40px rgb(40 24 26 / 0.12);
+}
+
+[data-style='minimal'] h1 {
+  letter-spacing: -0.025em;
+}
+
+/* Highlighted words become a quiet italic instead of a louder colour block */
+[data-style='minimal'] .hl {
+  font-style: italic;
+}
+
+[data-style='minimal'] .eyebrow {
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+/* The "primary" band becomes a soft tint of the secondary colour */
+[data-style='minimal'] .section--red {
+  --text: var(--color-ink);
+  --text-muted: color-mix(in srgb, var(--color-ink) 72%, var(--color-secondary));
+  --line: color-mix(in srgb, var(--color-ink) 14%, transparent);
+  --highlight: var(--color-primary);
+  --eyebrow: var(--color-primary);
+  background: var(--color-secondary);
+}
+
+/* ==========================================================================
+   STYLE: NUDE — editorial beauty look (theme.style: 'nude')
+   Nude-pink cream backgrounds, heavy condensed uppercase headings (Anton),
+   pill buttons, pink pill badges with a ✦, 12px cards, dark-brown footer.
+   Colours come from the client config: primary = dark brown, accent = pink.
+   ========================================================================== */
+:root[data-style='nude'] {
+  --fs-h1: clamp(3.4rem, 7.4vw, 6.6rem);
+  --fs-h2: clamp(2.4rem, 4.6vw, 3.8rem);
+  --fs-h3: 1.6rem;
+  --lh-heading: 0.98;
+  --lh-h1: 0.95;
+
+  --display-case: uppercase;
+  --display-weight: 400;
+  --display-tracking: 0.005em;
+  --ui-case: uppercase;
+  --ui-tracking: 0.08em;
+  --ui-tracking-wide: 0.08em;
+
+  --font-logo: 'Playfair Display', Georgia, serif;
+  --font-script: 'Great Vibes', 'Brush Script MT', cursive;
+
+  /* Pink used for TEXT on light backgrounds (AA for large text) vs. pink fills */
+  --pink: var(--color-accent);
+  --pink-text: var(--color-pink-text, var(--color-primary));
+  --pink-soft: color-mix(in srgb, var(--color-accent) 30%, var(--color-bg));
+
+  --text-muted: var(--color-muted, color-mix(in srgb, var(--color-ink) 72%, var(--color-bg)));
+  --highlight: var(--pink-text);
+  --eyebrow: var(--color-ink);
+
+  --radius-sm: 10px;
+  --radius-md: 12px;
+  --radius-pill: 999px;
+  --shadow-rest: 0 1px 2px rgb(43 29 26 / 0.04), 0 10px 30px rgb(43 29 26 / 0.06);
+  --shadow-hover: 0 2px 6px rgb(43 29 26 / 0.06), 0 20px 44px rgb(43 29 26 / 0.12);
+}
+
+[data-style='nude'] body {
+  background: var(--color-primary);
+}
+
+/* Section labels become pink pills followed by a ✦ */
+[data-style='nude'] .eyebrow {
+  gap: var(--space-2);
+  padding: 6px var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--pink-soft);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--color-ink);
+}
+
+[data-style='nude'] .eyebrow::before {
+  display: none;
+}
+
+[data-style='nude'] .eyebrow::after {
+  content: '✦';
+  content: '✦' / '';
+  font-size: 0.85em;
+  letter-spacing: 0;
+  color: var(--pink-text);
+}
+
+/* Small decorative star next to section titles */
+[data-style='nude'] .section h2::after {
+  content: '✦';
+  content: '✦' / '';
+  display: inline-block;
+  margin-left: 0.25em;
+  font-family: var(--font-body);
+  font-size: 0.32em;
+  vertical-align: 1.6em;
+  color: var(--pink);
+}
+
+/* On phones the star would wrap onto its own line under long titles */
+@media (max-width: 600px) {
+  [data-style='nude'] .section h2::after {
+    display: none;
+  }
+}
+
+/* Light editorial sections only: the former dark bands turn cream */
+[data-style='nude'] .section--dark {
+  --text: var(--color-ink);
+  --text-muted: var(--color-muted, color-mix(in srgb, var(--color-ink) 72%, var(--color-bg)));
+  --line: color-mix(in srgb, var(--color-ink) 12%, transparent);
+  --surface: var(--color-white);
+  --highlight: var(--pink-text);
+  --eyebrow: var(--color-ink);
+  background: var(--color-bg);
+}
+
+[data-style='nude'] .section--red {
+  --text: var(--color-ink);
+  --text-muted: var(--color-muted, color-mix(in srgb, var(--color-ink) 72%, var(--color-bg)));
+  --line: color-mix(in srgb, var(--color-ink) 12%, transparent);
+  --highlight: var(--pink-text);
+  --eyebrow: var(--color-ink);
+  background: var(--color-secondary);
+}
+
+[data-style='nude'] :focus-visible {
+  outline-color: var(--color-primary);
+  border-radius: var(--radius-sm);
+}
+
+[data-style='nude'] ::selection {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+
+/* --------------------------------------------------------------------------
+   Nude style — 3D motion
+   Sections rise into place with a slight perspective; cards and photos
+   tilt gently towards the mouse (see components/ui/Tilt.jsx).
+   -------------------------------------------------------------------------- */
+:root[data-style='nude'] {
+  --ease-3d: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+[data-style='nude'] .reveal {
+  transform: perspective(1200px) translateY(32px) rotateX(9deg);
+  transform-origin: 50% 100%;
+  transition:
+    opacity 900ms var(--ease-3d),
+    transform 1100ms var(--ease-3d);
+}
+
+[data-style='nude'] .reveal.is-visible {
+  transform: none;
+}
+
+[data-style='nude'] .tilt {
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 600ms var(--ease-3d);
+  will-change: transform;
+}
+
+/* Follow the mouse closely while hovering, ease back slowly on leave */
+[data-style='nude'] .tilt.is-tilting {
+  transition-duration: 120ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-style='nude'] .reveal,
+  [data-style='nude'] .reveal.is-visible,
+  [data-style='nude'] .tilt {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Nude style — phones: slightly larger labels and button text, so nothing
+   reads as tiny on a small screen (desktop sizes are unchanged).
+   -------------------------------------------------------------------------- */
+@media (max-width: 600px) {
+  [data-style='nude'] .eyebrow {
+    font-size: 0.875rem;
+  }
+}

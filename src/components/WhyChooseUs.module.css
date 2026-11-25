@@ -1,0 +1,113 @@
+.head {
+  max-width: 760px;
+  margin-bottom: var(--space-7);
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 3px solid var(--color-white);
+}
+
+.num {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  line-height: 0.9;
+  color: var(--color-highlight-primary, var(--color-ink));
+  transition:
+    color var(--t-base) var(--ease),
+    transform var(--t-base) var(--ease);
+}
+
+.item:hover .num {
+  color: var(--color-white);
+  transform: translateY(-4px);
+}
+
+.item p {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+@media (max-width: 960px) {
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6) var(--space-5);
+  }
+
+  .head {
+    margin-bottom: var(--space-6);
+  }
+}
+
+@media (max-width: 560px) {
+  .list {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  .num {
+    font-size: 3.2rem;
+  }
+}
+
+/* Minimal style: hairline rules and serif numerals in the primary colour */
+:global([data-style='minimal']) .item {
+  border-top: 1px solid var(--line);
+}
+
+:global([data-style='minimal']) .num {
+  font-size: 2.6rem;
+  font-style: italic;
+  line-height: 1;
+  color: var(--color-primary);
+}
+
+:global([data-style='minimal']) .item:hover .num {
+  color: var(--color-ink);
+}
+
+:global([data-style='minimal']) .item p {
+  font-weight: 400;
+}
+
+/* Nude style: pink condensed numerals, hairline rules */
+:global([data-style='nude']) .item {
+  border-top: 1px solid var(--line);
+}
+
+:global([data-style='nude']) .num {
+  font-size: 3.4rem;
+  color: var(--pink-text);
+}
+
+:global([data-style='nude']) .item:hover .num {
+  color: var(--color-ink);
+}
+
+:global([data-style='nude']) .item p {
+  font-weight: 400;
+}
+
+/* Nude style: the four points turn in one after another, like pages */
+:global([data-style='nude']) .item:global(.reveal):not(:global(.is-visible)) {
+  transform: perspective(1000px) rotateY(-32deg) translateX(-16px);
+  transform-origin: 0 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global([data-style='nude']) .item:global(.reveal):not(:global(.is-visible)) {
+    transform: none;
+  }
+}

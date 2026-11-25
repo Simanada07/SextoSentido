@@ -1,0 +1,17 @@
+.heading {
+  max-width: 720px;
+  margin-bottom: var(--space-6);
+}
+
+.center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.center .intro {
+  margin-inline: auto;
+}
+
+.intro {
+  margin-top: var(--space-3);
+}

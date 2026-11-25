@@ -1,0 +1,143 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 54px;
+  padding: 0 var(--space-5);
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: var(--ui-tracking);
+  text-transform: var(--ui-case);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--t-base) var(--ease),
+    border-color var(--t-base) var(--ease),
+    color var(--t-base) var(--ease),
+    box-shadow var(--t-base) var(--ease),
+    transform var(--t-base) var(--ease);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.sm {
+  min-height: 46px;
+  padding: 0 var(--space-4);
+}
+
+.icon {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: 2;
+}
+
+.primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.primary:hover {
+  background: var(--color-primary-hover);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Adapts to the section it sits in (dark text on light, white on dark) */
+.outline {
+  background: transparent;
+  border-color: var(--text, var(--color-ink));
+  color: var(--text, var(--color-ink));
+}
+
+.outline:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.light {
+  background: transparent;
+  border-color: var(--color-white);
+  color: var(--color-white);
+}
+
+.light:hover {
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+
+/* Minimal style: slimmer border, medium weight */
+:global([data-style='minimal']) .button {
+  border-width: 1px;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Nude style: pill buttons. Primary = dark brown + white text with the arrow
+   after the label; light = pink pill with dark text; outline = ink pill.
+   -------------------------------------------------------------------------- */
+:global([data-style='nude']) .button {
+  border-width: 1px;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+:global([data-style='nude']) .icon {
+  order: 2;
+  transition: transform var(--t-base) var(--ease);
+}
+
+:global([data-style='nude']) .button:hover .icon {
+  transform: translateX(3px);
+}
+
+:global([data-style='nude']) .primary {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+:global([data-style='nude']) .primary:hover {
+  background: color-mix(in srgb, var(--color-primary) 82%, var(--color-accent));
+}
+
+:global([data-style='nude']) .light {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: var(--color-ink);
+}
+
+:global([data-style='nude']) .light:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+:global([data-style='nude']) .outline:hover {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: var(--color-ink);
+}
+
+@media (max-width: 600px) {
+  :global([data-style='nude']) .button {
+    font-size: 0.9375rem;
+  }
+}

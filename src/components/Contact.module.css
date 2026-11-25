@@ -1,0 +1,553 @@
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.details {
+  display: grid;
+  gap: var(--space-5);
+  margin: var(--space-6) 0 0;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line);
+}
+
+.details dt {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--eyebrow);
+}
+
+.details dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  line-height: 1.2;
+  text-transform: var(--display-case);
+  letter-spacing: 0.01em;
+}
+
+.details a {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition:
+    background-size var(--t-base) var(--ease),
+    color var(--t-base) var(--ease);
+}
+
+.details a:hover {
+  color: var(--color-primary);
+  background-size: 100% 1px;
+}
+
+.hoursRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-4);
+}
+
+.hoursRow > span:first-child {
+  flex-basis: 100%;
+}
+
+.hoursRow > span:not(:first-child) {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+/* Booking card */
+.card {
+  /* The booking card is a light panel inside the dark section */
+  --text: var(--color-ink);
+  --text-muted: color-mix(in srgb, var(--color-ink) 70%, var(--color-white));
+  --line: color-mix(in srgb, var(--color-ink) 14%, transparent);
+  --surface: var(--color-white);
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: var(--shadow-hover);
+}
+
+.cardMedia {
+  aspect-ratio: 16 / 7;
+  border-radius: 0;
+}
+
+.cardBody {
+  padding: var(--space-6) var(--space-6) var(--space-5);
+}
+
+.form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.form h3,
+.success h3 {
+  font-size: 1.75rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.row3 {
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.field > span {
+  font-size: var(--fs-small);
+  font-weight: 500;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 52px;
+  padding: var(--space-3);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-size: var(--fs-small);
+  transition:
+    border-color var(--t-fast) var(--ease),
+    box-shadow var(--t-fast) var(--ease),
+    background-color var(--t-fast) var(--ease);
+}
+
+.field select {
+  appearance: none;
+  padding-right: var(--space-6);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23777' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-3) center;
+  cursor: pointer;
+}
+
+.field textarea {
+  min-height: 96px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: color-mix(in srgb, var(--color-ink) 42%, transparent);
+}
+
+.field input:hover,
+.field select:hover,
+.field textarea:hover {
+  border-color: color-mix(in srgb, var(--color-ink) 36%, transparent);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background-color: var(--surface);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 16%, transparent);
+}
+
+.submit {
+  width: 100%;
+  margin-top: var(--space-2);
+}
+
+.note {
+  font-size: var(--fs-small);
+  text-align: center;
+  color: var(--text-muted);
+  margin-inline: auto;
+}
+
+/* Success state */
+.success {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+}
+
+.successIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.summary {
+  width: 100%;
+  margin: var(--space-2) 0;
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-secondary);
+  list-style: none;
+  font-size: var(--fs-small);
+  line-height: 1.8;
+}
+
+.successActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    gap: var(--space-6);
+  }
+
+  .actions > * {
+    flex: 1 1 100%;
+  }
+
+  .cardBody {
+    padding: var(--space-5) var(--space-4) var(--space-4);
+  }
+
+  .row,
+  .row3 {
+    grid-template-columns: 1fr;
+  }
+
+  .successActions > * {
+    flex: 1 1 100%;
+  }
+}
+
+@media (min-width: 340px) and (max-width: 600px) {
+  .row3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .row3 > :first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Restaurant picker (left column) */
+.picker {
+  max-width: none;
+  margin-bottom: var(--space-5);
+}
+
+.picker select {
+  font-weight: 600;
+}
+
+.selected {
+  display: grid;
+  gap: var(--space-5);
+  animation: fadeIn 300ms var(--ease);
+}
+
+.selected .details {
+  margin-top: 0;
+}
+
+.small {
+  font-family: var(--font-body) !important;
+  font-size: var(--fs-small) !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+.empty {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.emptyIcon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.emptyLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: var(--ui-tracking);
+  text-transform: var(--ui-case);
+  text-decoration: none;
+  color: var(--color-white);
+  border-bottom: 2px solid var(--color-primary);
+  transition: color var(--t-fast) var(--ease);
+}
+
+.emptyLink:hover {
+  color: var(--color-primary);
+}
+
+.info > .actions {
+  margin-top: var(--space-5);
+}
+
+.forLocation {
+  margin-top: calc(var(--space-3) * -1);
+  font-weight: 700;
+  letter-spacing: var(--ui-tracking);
+  text-transform: var(--ui-case);
+  color: var(--color-primary);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* Call card: the main booking action once a restaurant is chosen */
+.callCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: var(--color-white);
+  text-decoration: none;
+  box-shadow: var(--shadow-rest);
+  transition:
+    background-color var(--t-base) var(--ease),
+    transform var(--t-base) var(--ease),
+    box-shadow var(--t-base) var(--ease);
+}
+
+.callCard:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.callCard > svg {
+  flex: none;
+  margin-left: auto;
+  transition: transform var(--t-base) var(--ease);
+}
+
+.callCard:hover > svg {
+  transform: translateX(4px);
+}
+
+.callIcon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--color-primary);
+}
+
+.callText {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.callLabel {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: var(--ui-tracking);
+  text-transform: var(--ui-case);
+}
+
+.callNumber {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.05;
+  text-transform: var(--display-case);
+}
+
+.callHint {
+  margin-top: calc(var(--space-3) * -1);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+/* Hint under the date/time row (e.g. which days are closed) */
+.hint {
+  margin-top: calc(var(--space-2) * -1);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+/* Weekly opening hours */
+.week {
+  display: grid;
+  max-width: 360px;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.week li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--line);
+  font-variant-numeric: tabular-nums;
+}
+
+.week li:last-child {
+  border-bottom: 0;
+}
+
+.closed {
+  color: var(--text-muted);
+}
+
+.today {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.todayTag {
+  margin-left: var(--space-2);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-white);
+}
+
+/* --------------------------------------------------------------------------
+   Minimal style: lighter details, hairline rules
+   -------------------------------------------------------------------------- */
+:global([data-style='minimal']) .details dd {
+  font-size: 1.4rem;
+  line-height: 1.3;
+}
+
+:global([data-style='minimal']) .details dt,
+:global([data-style='minimal']) .callLabel {
+  font-weight: 600;
+}
+
+:global([data-style='minimal']) .callNumber {
+  letter-spacing: -0.01em;
+}
+
+:global([data-style='minimal']) .form h3,
+:global([data-style='minimal']) .success h3 {
+  font-size: 1.6rem;
+}
+
+/* --------------------------------------------------------------------------
+   Nude style: cream section, dark-brown call card with a pink icon,
+   white booking card with soft inputs.
+   -------------------------------------------------------------------------- */
+:global([data-style='nude']) .callCard {
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+}
+
+:global([data-style='nude']) .callCard:hover {
+  background: color-mix(in srgb, var(--color-primary) 86%, var(--color-accent));
+}
+
+:global([data-style='nude']) .callIcon {
+  background: var(--pink);
+  color: var(--color-ink);
+}
+
+:global([data-style='nude']) .details dt {
+  color: var(--pink-text);
+}
+
+:global([data-style='nude']) .card {
+  box-shadow: var(--shadow-rest);
+}
+
+:global([data-style='nude']) .field input,
+:global([data-style='nude']) .field select,
+:global([data-style='nude']) .field textarea {
+  border-color: color-mix(in srgb, var(--color-ink) 14%, transparent);
+  background-color: var(--color-bg);
+}
+
+:global([data-style='nude']) .field input:focus,
+:global([data-style='nude']) .field select:focus,
+:global([data-style='nude']) .field textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+
+:global([data-style='nude']) .todayTag {
+  background: var(--pink);
+  color: var(--color-ink);
+}
+
+:global([data-style='nude']) .successIcon {
+  background: var(--pink);
+  color: var(--color-ink);
+}
+
+@media (max-width: 600px) {
+  :global([data-style='nude']) .details dt,
+  :global([data-style='nude']) .todayTag {
+    font-size: 0.875rem;
+  }
+}

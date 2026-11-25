@@ -1,0 +1,582 @@
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+  min-height: 90svh;
+  padding-top: var(--nav-h);
+  overflow: hidden;
+  color: var(--color-white);
+  background: var(--color-ink);
+  --highlight: var(--color-highlight-dark, var(--color-primary));
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+}
+
+.bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 48% 55%;
+  animation: settle 1800ms var(--ease) both;
+}
+
+/* Desktop: the dish sits on the right and fades into the black text side. */
+@media (min-width: 861px) {
+  .bg {
+    left: 44%;
+  }
+
+  .bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      var(--color-ink) 0%,
+      rgb(17 17 17 / 0.55) 16%,
+      rgb(17 17 17 / 0) 40%
+    );
+  }
+}
+
+/* Tablet & mobile: full-bleed photo with a dark fade under the text. */
+@media (max-width: 860px) {
+  .bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgb(17 17 17 / 0.25) 0%,
+      rgb(17 17 17 / 0.88) 58%
+    );
+  }
+
+  .inner {
+    align-items: flex-end;
+  }
+}
+
+@keyframes settle {
+  from {
+    transform: scale(1.06);
+  }
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding-block: var(--space-8);
+}
+
+.content {
+  max-width: 720px;
+  animation: rise 900ms var(--ease) 150ms both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+.eyebrow {
+  color: var(--color-white);
+}
+
+.eyebrow::before {
+  background: var(--color-primary);
+}
+
+.title {
+  color: var(--color-white);
+  max-width: 15ch;
+  line-height: 1;
+}
+
+/* The red part of the headline always starts on its own line */
+.title :global(.hl) {
+  display: block;
+}
+
+.sub {
+  margin-top: var(--space-4);
+  max-width: 46ch;
+  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  font-weight: 500;
+  color: color-mix(in srgb, var(--color-white) 86%, transparent);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.phone {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  margin-top: var(--space-3);
+  font-weight: 700;
+  letter-spacing: var(--ui-tracking);
+  text-transform: var(--ui-case);
+  text-decoration: none;
+  color: var(--color-white);
+  border-bottom: 2px solid var(--color-primary);
+  padding-bottom: var(--space-1);
+  transition: color var(--t-fast) var(--ease);
+}
+
+.phone:hover {
+  color: var(--color-primary);
+}
+
+/* Red information strip — like the bottom band of the Camada posters */
+.bar {
+  position: relative;
+  z-index: 1;
+  background: var(--color-primary);
+}
+
+.barList {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-block: 0;
+  list-style: none;
+}
+
+.barList li {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-4);
+  border-left: 2px solid color-mix(in srgb, var(--color-white) 70%, transparent);
+}
+
+.barList li:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.barLabel {
+  font-size: var(--fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-white) 86%, transparent);
+}
+
+.barValue {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.2vw, 1.9rem);
+  line-height: 1.05;
+  text-transform: var(--display-case);
+  color: var(--color-white);
+}
+
+@media (max-width: 860px) {
+  .barList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .barList li:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .barList li:nth-child(n + 3) {
+    border-top: 2px solid color-mix(in srgb, var(--color-white) 30%, transparent);
+  }
+}
+
+@media (max-width: 600px) {
+  .inner {
+    padding-block: var(--space-7) var(--space-6);
+    align-items: flex-end;
+  }
+
+  .bg img {
+    object-position: 42% 30%;
+  }
+
+  .ctas > * {
+    flex: 1 1 100%;
+  }
+
+  .barList li {
+    padding: var(--space-3) var(--space-3);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Minimal style: the photo fades into the warm ink tone (one tonal layer),
+   and the information strip becomes a quiet line instead of a coloured band.
+   -------------------------------------------------------------------------- */
+:global([data-style='minimal']) .bg img {
+  object-position: var(--hero-position, 50% 50%);
+}
+
+@media (min-width: 861px) {
+  :global([data-style='minimal']) .bg {
+    left: 38%;
+  }
+
+  :global([data-style='minimal']) .bg::after {
+    background: linear-gradient(
+      90deg,
+      var(--color-ink) 0%,
+      color-mix(in srgb, var(--color-ink) 55%, transparent) 18%,
+      color-mix(in srgb, var(--color-ink) 0%, transparent) 45%
+    );
+  }
+}
+
+@media (max-width: 860px) {
+  :global([data-style='minimal']) .bg::after {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-ink) 20%, transparent) 0%,
+      color-mix(in srgb, var(--color-ink) 90%, transparent) 62%
+    );
+  }
+}
+
+:global([data-style='minimal']) .eyebrow::before {
+  background: var(--color-accent);
+}
+
+:global([data-style='minimal']) .title {
+  max-width: 14ch;
+}
+
+:global([data-style='minimal']) .sub {
+  font-weight: 400;
+}
+
+:global([data-style='minimal']) .phone {
+  font-weight: 600;
+  border-bottom-width: 1px;
+  border-bottom-color: var(--color-accent);
+}
+
+:global([data-style='minimal']) .phone:hover {
+  color: var(--color-accent);
+}
+
+:global([data-style='minimal']) .bar {
+  background: var(--color-ink);
+  border-top: 1px solid color-mix(in srgb, var(--color-white) 12%, transparent);
+}
+
+:global([data-style='minimal']) .barList li {
+  border-left-width: 1px;
+  border-left-color: color-mix(in srgb, var(--color-white) 16%, transparent);
+}
+
+:global([data-style='minimal']) .barList li:first-child {
+  border-left: 0;
+}
+
+:global([data-style='minimal']) .barLabel {
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+:global([data-style='minimal']) .barValue {
+  font-size: clamp(1.125rem, 1.6vw, 1.35rem);
+  line-height: 1.25;
+}
+
+@media (max-width: 860px) {
+  :global([data-style='minimal']) .barList li:nth-child(odd) {
+    border-left: 0;
+  }
+
+  :global([data-style='minimal']) .barList li:nth-child(n + 3) {
+    border-top-width: 1px;
+    border-top-color: color-mix(in srgb, var(--color-white) 12%, transparent);
+  }
+}
+
+/* Rotating seal — only shown by styles that use it (see nude below) */
+.seal {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Nude style: split hero on the cream background — text left, the photo on
+   the right melting into the page colour, and a slowly rotating pink seal.
+   -------------------------------------------------------------------------- */
+:global([data-style='nude']) .hero {
+  --highlight: var(--pink-text);
+  color: var(--color-ink);
+  background: var(--color-bg);
+}
+
+:global([data-style='nude']) .bg img {
+  object-position: var(--hero-position, 50% 50%);
+}
+
+:global([data-style='nude']) .eyebrow {
+  padding: 0;
+  background: none;
+  color: var(--color-ink);
+}
+
+:global([data-style='nude']) .title {
+  max-width: none;
+  color: var(--color-ink);
+}
+
+:global([data-style='nude']) .sub {
+  max-width: 40ch;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+:global([data-style='nude']) .phone {
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--pink);
+}
+
+:global([data-style='nude']) .phone:hover {
+  color: var(--pink-text);
+}
+
+/* Seal */
+:global([data-style='nude']) .seal {
+  position: absolute;
+  z-index: 2;
+  right: clamp(16px, 5vw, 72px);
+  bottom: clamp(24px, 9vh, 96px);
+  display: grid;
+  place-items: center;
+  width: clamp(120px, 12vw, 164px);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--color-white) 70%, transparent);
+  border-radius: 50%;
+  background: rgb(26 20 20 / 0.38);
+}
+
+:global([data-style='nude']) .sealRing {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: spin 24s linear infinite;
+}
+
+:global([data-style='nude']) .sealRing text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  fill: var(--color-white);
+}
+
+:global([data-style='nude']) .sealCenter {
+  display: grid;
+  place-items: center;
+  width: 56%;
+  aspect-ratio: 1;
+  padding: var(--space-2);
+  border-radius: 50%;
+  background: var(--pink);
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Info strip: a quiet row on the cream background */
+:global([data-style='nude']) .bar {
+  background: var(--color-bg);
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 10%, transparent);
+}
+
+:global([data-style='nude']) .barList li {
+  border-left: 1px solid color-mix(in srgb, var(--color-ink) 10%, transparent);
+}
+
+:global([data-style='nude']) .barList li:first-child {
+  border-left: 0;
+}
+
+:global([data-style='nude']) .barLabel {
+  color: var(--pink-text);
+}
+
+:global([data-style='nude']) .barValue {
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  color: var(--color-ink);
+}
+
+@media (min-width: 861px) {
+  :global([data-style='nude']) .bg {
+    left: 42%;
+  }
+
+  /* Sit above the info strip, which covers the bottom of the photo */
+  :global([data-style='nude']) .seal {
+    bottom: calc(var(--space-9) + var(--space-5));
+  }
+
+  :global([data-style='nude']) .bg::after {
+    background: linear-gradient(
+      90deg,
+      var(--color-bg) 0%,
+      color-mix(in srgb, var(--color-bg) 70%, transparent) 14%,
+      color-mix(in srgb, var(--color-bg) 0%, transparent) 42%
+    );
+  }
+}
+
+/* Tablet & mobile: the photo stacks on top and fades into the cream */
+@media (max-width: 860px) {
+  :global([data-style='nude']) .hero {
+    min-height: 0;
+  }
+
+  :global([data-style='nude']) .bg {
+    position: relative;
+    height: min(58vh, 520px);
+  }
+
+  :global([data-style='nude']) .bg::after {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-bg) 0%, transparent) 55%,
+      var(--color-bg) 100%
+    );
+  }
+
+  :global([data-style='nude']) .inner {
+    align-items: flex-start;
+    padding-block: var(--space-4) var(--space-6);
+  }
+
+  :global([data-style='nude']) .seal {
+    bottom: var(--space-6);
+  }
+
+  :global([data-style='nude']) .barList li:nth-child(odd) {
+    border-left: 0;
+  }
+
+  :global([data-style='nude']) .barList li:nth-child(n + 3) {
+    border-top: 1px solid color-mix(in srgb, var(--color-ink) 10%, transparent);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Nude style — 3D entrance: the photo opens with a slight turn, the text
+   comes in line by line, and the seal flips in before it starts rotating.
+   -------------------------------------------------------------------------- */
+:global([data-style='nude']) .bg img {
+  transform-origin: 100% 50%;
+  animation: unfold 1600ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes unfold {
+  from {
+    opacity: 0;
+    transform: perspective(1400px) rotateY(-12deg) scale(1.14);
+  }
+}
+
+:global([data-style='nude']) .content {
+  animation: none;
+}
+
+:global([data-style='nude']) .content > *,
+:global([data-style='nude']) .title :global(.hl) {
+  transform-origin: 50% 0;
+  animation: lineIn 1000ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+:global([data-style='nude']) .content > :nth-child(1) {
+  animation-delay: 150ms;
+}
+
+:global([data-style='nude']) .content > :nth-child(2) {
+  animation-delay: 260ms;
+}
+
+:global([data-style='nude']) .title :global(.hl) {
+  animation-delay: 420ms;
+}
+
+:global([data-style='nude']) .content > :nth-child(3) {
+  animation-delay: 560ms;
+}
+
+:global([data-style='nude']) .content > :nth-child(4) {
+  animation-delay: 680ms;
+}
+
+:global([data-style='nude']) .content > :nth-child(5) {
+  animation-delay: 780ms;
+}
+
+@keyframes lineIn {
+  from {
+    opacity: 0;
+    transform: perspective(800px) translateY(24px) rotateX(-35deg);
+  }
+}
+
+:global([data-style='nude']) .seal {
+  animation: sealIn 1200ms cubic-bezier(0.2, 0.7, 0.2, 1) 900ms both;
+}
+
+@keyframes sealIn {
+  from {
+    opacity: 0;
+    transform: perspective(600px) rotateY(80deg) scale(0.7);
+  }
+}
+
+/* Nude style — phones: a shorter photo so the headline and the booking
+   button are visible without scrolling; slightly larger labels. */
+@media (max-width: 600px) {
+  :global([data-style='nude']) .bg {
+    height: min(42vh, 360px);
+  }
+
+  :global([data-style='nude']) .inner {
+    padding-block: var(--space-3) var(--space-6);
+  }
+
+  :global([data-style='nude']) .eyebrow,
+  :global([data-style='nude']) .barLabel {
+    font-size: 0.875rem;
+  }
+
+  :global([data-style='nude']) .seal {
+    width: 112px;
+    bottom: var(--space-5);
+  }
+
+  :global([data-style='nude']) .ctas {
+    margin-top: var(--space-5);
+  }
+}
