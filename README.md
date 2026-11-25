@@ -28,6 +28,8 @@ src/config/business.js
 | Mudar o horário               | `locations.items[0].hoursTable` e `hours`    |
 | Trocar uma foto               | o `image.src` dessa secção                   |
 | Mudar as cores                | `theme`                                      |
+| Usar um domínio próprio       | `seo.url: 'https://sextosentido.pt'`         |
+| Mudar a imagem ao partilhar   | `seo.shareImage` (1200 × 630, em /public)    |
 
 O que ficar vazio (`''`) desaparece sozinho do site.
 

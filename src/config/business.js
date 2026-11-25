@@ -44,6 +44,17 @@ const business = {
     title: `${SHORT} — Cabeleireiro, Estética e Bem-Estar no Porto`,
     description:
       'Cortes, penteados, coloração e tratamentos na Rua do Amial 926, no Porto. Aberto segunda, terça, quinta, sexta e sábado, das 9:00 às 19:00. Marcações: 930 553 806.',
+    // Endereço do site publicado. Quando houver domínio próprio, troque aqui
+    // (ex.: 'https://sextosentido.pt') e publique de novo.
+    url: 'https://sexto-sentido-porto.netlify.app',
+    // Imagem que aparece ao partilhar o link (WhatsApp, Facebook…):
+    // 1200 × 630 px, ficheiro na pasta /public.
+    shareImage: {
+      src: '/og-image.jpg',
+      alt: 'Cabeleireira a lavar o cabelo de uma cliente no lavatório',
+      width: 1200,
+      height: 630,
+    },
   },
 
   /* 2. CONTACTOS (vazio = escondido) */
