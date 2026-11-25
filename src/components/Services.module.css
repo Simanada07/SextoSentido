@@ -73,3 +73,14 @@
 .tilt {
   height: 100%;
 }
+
+/* Nude style, phones: cards in the swipe carousel are shown straight away.
+   (Cards off to the side never enter the screen while scrolling down, so a
+   scroll reveal would leave them blank until the visitor swipes.) */
+@media (max-width: 600px) {
+  :global([data-style='nude']) .grid4 > :global(.reveal) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
